@@ -11,7 +11,7 @@ const overlayScore = document.getElementById("overlayScore");
 const overlayBest = document.getElementById("overlayBest");
 const touchButtons = document.querySelectorAll(".touch-keys button");
 
-console.log("%cHowdy! I'm %cDevMatei%c, and your looking at my game made for the %casws hackclub challange called %cIPlace%c!",
+console.log("%cHowdy! I'm %cDevMatei%c, and your looking at my game made for the %cYSWS hackclub challange called %cIFrame%c!",
     "color: #ff6584; font-size: 16px;", 
     "color: #6ad972; font-size: 16px;", 
     "color: #ff6584; font-size: 16px;", 
@@ -33,7 +33,7 @@ try {
 })();
 
 const settings = {
-gridSize: 20,
+gridSize: 15,
 snakeColor: "#6ad972",
 snakeHeadColor: "#b8f18b",
 appleColor: "#ff6565",
