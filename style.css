@@ -1,0 +1,416 @@
+:root {
+    color-scheme: dark;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background-color: #0f131a;
+    color: #e7edf6;
+    font-size: 16px;
+    --touch-size: 60px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    min-height: 100vh;
+    padding: clamp(4px, 3vw, 12px);
+    overflow: auto;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    width: min(96vw, 720px);
+    gap: clamp(6px, 2vw, 12px);
+}
+
+.topline {
+    background: rgba(12, 17, 27, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: clamp(8px, 2vw, 14px) clamp(10px, 3vw, 18px);
+    backdrop-filter: blur(8px);
+}
+
+.topline h1 {
+    margin: 0 0 clamp(2px, 0.8vw, 6px);
+    font-size: clamp(1.4rem, 2vw + 1rem, 2.1rem);
+    letter-spacing: 0.03em;
+}
+
+.topline .note {
+    margin: 0;
+    font-size: clamp(0.72rem, 0.8vw + 0.7rem, 0.95rem);
+    color: #9db0cc;
+}
+
+.board {
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr auto auto;
+    gap: 10px;
+    padding: clamp(8px, 2vw, 14px);
+    border-radius: 12px;
+    background: radial-gradient(circle at top, rgba(40, 60, 90, 0.38), #101722 70%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    min-height: 0;
+}
+
+canvas {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    display: block;
+    border-radius: 8px;
+    background: #0a0d14;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    touch-action: none;
+}
+
+.hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.metric .label {
+    font-size: clamp(0.6rem, 0.8vw + 0.4rem, 0.75rem);
+    text-transform: uppercase;
+    color: #7990b6;
+    letter-spacing: 0.08em;
+}
+
+.metric .value {
+    font-size: clamp(1rem, 0.8vw + 0.9rem, 1.8rem);
+    font-variant-numeric: tabular-nums;
+}
+
+.toggle {
+    padding: 8px 14px;
+    background: #152133;
+    color: #d6e3ff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 140ms ease;
+}
+
+.toggle:hover,
+.toggle:focus-visible {
+    background: #1f2e45;
+    outline: none;
+}
+
+.touch-keys {
+    display: grid;
+    grid-template-columns: repeat(3, var(--touch-size));
+    grid-template-rows: repeat(2, var(--touch-size));
+    gap: 6px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.touch-keys button {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: none;
+    background: rgba(20, 30, 45, 0.9);
+    color: #d4dbea;
+    font-size: calc(var(--touch-size) * 0.55);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+}
+ /* if u see this you are cool pt. 2 since i also said this in main.js */
+.touch-keys .key-up {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.touch-keys .key-left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.touch-keys .key-down {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.touch-keys .key-right {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.touch-keys button:active {
+    background: rgba(45, 70, 110, 0.9);
+}
+
+.overlay {
+    position: absolute;
+    inset: clamp(4px, 2vw, 12px);
+    display: grid;
+    place-items: center;
+    background: rgba(8, 11, 18, 0.76);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 10;
+}
+
+.overlay[hidden] {
+    display: none;
+}
+
+.card {
+    display: grid;
+    justify-items: center;
+    gap: clamp(6px, 1.4vw, 12px);
+    text-align: center;
+    max-width: 220px;
+    padding: clamp(10px, 2vw, 18px);
+    background: rgba(16, 22, 34, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(8, 12, 18, 0.55);
+}
+
+.card h2 {
+    margin: 0;
+    font-size: clamp(1rem, 1vw + 0.8rem, 1.4rem);
+}
+
+.overlay-score {
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    font-size: clamp(0.8rem, 0.7vw + 0.7rem, 1.1rem);
+    color: #9bb3d8;
+}
+
+.overlay-score strong {
+    color: #e7edf6;
+    font-size: clamp(1.1rem, 0.9vw + 1rem, 1.6rem);
+}
+
+.overlay-button {
+    width: 100%;
+}
+
+.tiny-hint {
+    margin: 0;
+    font-size: clamp(0.65rem, 0.6vw + 0.45rem, 0.8rem);
+    color: #7b8eb0;
+}
+
+.footnote {
+    text-align: center;
+    font-size: clamp(0.68rem, 0.8vw + 0.6rem, 0.85rem);
+    color: #8c9db8;
+}
+
+.footnote .small {
+    margin-top: 4px;
+    font-size: clamp(0.6rem, 0.4vw + 0.55rem, 0.76rem);
+    color: #6b7c98;
+}
+
+@media (pointer: fine) and (min-width: 560px) {
+    .touch-keys {
+        display: none;
+    }
+}
+
+@media (max-width: 420px) {
+    .toggle {
+        width: 100%;
+    }
+}
+
+body.hide-best .metric-best,
+body.hide-best .overlay-best {
+    display: none;
+}
+
+body.mini-mode {
+    overflow: hidden;
+    --touch-size: clamp(18px, 12vw, 26px);
+}
+
+body.micro-mode {
+    --touch-size: clamp(16px, 16vw, 22px);
+}
+
+body.mini-mode .topline,
+body.mini-mode .footnote {
+    display: none;
+}
+
+body.mini-mode .wrap {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    gap: 4px;
+}
+
+body.mini-mode .board {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: clamp(3px, 1.6vw, 6px);
+    gap: clamp(2px, 1vw, 4px);
+    overflow: hidden;
+    min-height: 0;
+    flex: 1 1 auto;
+}
+
+body.mini-mode .hud {
+    order: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(4px, 2vw, 8px);
+    font-size: 0.85rem;
+}
+
+body.micro-mode .hud {
+    gap: clamp(2px, 2.2vw, 6px);
+    font-size: 0.78rem;
+}
+
+body.mini-mode .metric {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 4px;
+}
+
+body.mini-mode .metric .label {
+    display: none;
+}
+
+body.mini-mode .metric .value {
+    font-size: clamp(0.78rem, 2.8vw, 1.05rem);
+}
+
+body.micro-mode .metric .value {
+    font-size: clamp(0.72rem, 3vw, 0.95rem);
+}
+
+body.mini-mode .toggle {
+    font-size: clamp(0.7rem, 2.6vw, 0.9rem);
+    padding: clamp(3px, 1.4vw, 6px) clamp(6px, 2vw, 12px);
+}
+
+body.micro-mode .toggle {
+    display: none;
+}
+
+body.mini-mode canvas {
+    order: 1;
+    align-self: center;
+    aspect-ratio: 1 / 1;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 6px;
+}
+
+body.mini-mode .touch-keys {
+    order: 2;
+    display: grid !important;
+    margin: clamp(2px, 1.4vw, 6px) auto 0;
+    gap: clamp(2px, 1.4vw, 4px);
+}
+
+body.mini-mode .touch-keys button {
+    font-size: clamp(0.6rem, 2.6vw, 0.95rem);
+    border-radius: 6px;
+}
+
+body.micro-mode .touch-keys button {
+    border-radius: 5px;
+}
+
+body.mini-mode .overlay {
+    inset: clamp(2px, 1vw, 8px);
+}
+
+body.mini-mode .card {
+    gap: 4px;
+    padding: clamp(6px, 3vw, 12px);
+    max-width: 160px;
+}
+
+body.mini-mode .card .tiny-hint {
+    display: none;
+}
+
+@media (max-width: 260px) {
+    .board {
+        gap: 6px;
+        padding: 6px;
+    }
+
+    .hud {
+        gap: 4px;
+    }
+
+    .metric .value {
+        font-size: clamp(0.8rem, 3vw, 1rem);
+    }
+
+    body:not(.mini-mode) .touch-keys {
+        --touch-size: 34px;
+    }
+}
+
+@media (max-width: 180px) {
+    body {
+        padding: 2px;
+    }
+
+    .wrap {
+        gap: 4px;
+    }
+
+    .topline,
+    .board,
+    .footnote {
+        padding: 4px;
+    }
+
+    .topline h1 {
+        font-size: 0.9rem;
+    }
+
+    .topline .note,
+    .footnote {
+        display: none;
+    }
+
+    .toggle {
+        padding: 4px 8px;
+        font-size: 0.6rem;
+    }
+
+    .touch-keys {
+        display: none;
+    }
+}

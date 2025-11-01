@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptasnake</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="wrap">
+        <header class="topline">
+            <h1>Adaptasnake</h1>
+            <p class="note">Snake game that adapts to whatever window size/iframe you throw it in :0</p>
+        </header>
+
+        <section class="board">
+            <canvas id="gameCanvas" aria-label="Snake game canvas" role="img"></canvas>
+            <div class="hud">
+                <div class="metric">
+                    <span class="label">Score</span>
+                    <span class="value" id="scoreDisplay">0</span>
+                </div>
+                <div class="metric metric-best">
+                    <span class="label">Best</span>
+                    <span class="value" id="bestDisplay">0</span>
+                </div>
+                <button class="toggle" id="pauseButton" type="button">Pause</button>
+                <!-- hi hackclub reviewers (idk if yall actually look at the code its my first time) -->
+            </div>
+            <div class="touch-keys" aria-hidden="true">
+                <button data-dir="up" class="key key-up">▲</button>
+                <button data-dir="left" class="key key-left">◀</button>
+                <button data-dir="down" class="key key-down">▼</button>
+                <button data-dir="right" class="key key-right">▶</button>
+            </div>
+            <div class="overlay" id="gameOverlay" hidden>
+                <article class="card">
+                    <h2 id="overlayTitle">You crashed</h2>
+                    <p class="overlay-score">
+                        <span>Score</span>
+                        <strong id="overlayScore">0</strong>
+                    </p>
+                    <p class="overlay-score overlay-best">
+                        <span>Best</span>
+                        <strong id="overlayBest">0</strong>
+                    </p>
+                    <button type="button" class="toggle overlay-button" id="restartButton">Play again</button>
+                    <p class="tiny-hint">Tip: press R to restart faster.</p>
+                </article>
+            </div>
+        </section>
+
+        <footer class="footnote"> <!-- hehehhe feet 🤤🤤 -->
+            <p>WASD or arrows to move. Tap buttons or swipe if you are on touch</p>
+            <p class="small">Game pauses automatically when the tab is out of focus</p>
+        </footer>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>
