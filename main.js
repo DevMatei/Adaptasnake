@@ -1,6 +1,5 @@
-
 const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+const ctx = canvas ? canvas.getContext("2d") : null;
 const scoreDisplay = document.getElementById("scoreDisplay");
 const bestDisplay = document.getElementById("bestDisplay");
 const pauseButton = document.getElementById("pauseButton");
@@ -10,8 +9,20 @@ const overlayTitle = document.getElementById("overlayTitle");
 const overlayScore = document.getElementById("overlayScore");
 const overlayBest = document.getElementById("overlayBest");
 const touchButtons = document.querySelectorAll(".touch-keys button");
+const hasGameDom = Boolean(
+  canvas &&
+  ctx &&
+  scoreDisplay &&
+  bestDisplay &&
+  pauseButton &&
+  restartButton &&
+  gameOverlay &&
+  overlayTitle &&
+  overlayScore &&
+  overlayBest
+);
 
-console.log("%cHowdy! I'm %cDevMatei%c, and your looking at my game made for the %cYSWS hackclub challange called %cIFrame%c!",
+console.log("%cHowdy! I'm %cDevMatei%c, and if you go at coordinates -806,-348 on the canvas you will be looking at my game made for the %cYSWS hackclub challange called %cIFrame%c! Hope you like it! :D",
     "color: #ff6584; font-size: 16px;", 
     "color: #6ad972; font-size: 16px;", 
     "color: #ff6584; font-size: 16px;", 
@@ -473,4 +484,17 @@ registerSwipe();
     });
 };
 
-init();
+// 404 page functionality
+const handle404 = () => {
+    document.body.classList.add("error");
+    const missingPath = document.getElementById("missingPath");
+    if (missingPath) {
+        missingPath.textContent = window.location.pathname || "/";
+    }
+};
+
+if (hasGameDom) {
+    init();
+} else {
+    handle404();
+}
